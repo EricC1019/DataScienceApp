@@ -11,6 +11,7 @@
     <table>
         <thead>
             <tr>
+                <!-- table headers -->
                 <th></th>
                 {% for header in df.columns %}
                 <th>{{header}}</th>
@@ -18,9 +19,20 @@
             </tr>
         </thead>
         <tbody>
+            <!-- add each row -->
             {% for index, row in df.iterrows() %}
-                <tr>
+                <!-- even and odd colors -->
+                <tr
+                    {% if loop.index is even %}
+                        class="even"
+                    {% else %}
+                        class="odd"
+                    {% endif %}
+                    >
+                    <!-- add index -->
                     <td>{{index}}</td>
+
+                    <!-- add each column in each row -->
                     {% for col in df.columns %}
                         <td>{{ row[col] }}</td>
                     {% endfor %}

@@ -13,20 +13,12 @@ import numpy as np
 app = Flask(__name__)
 
 # Home Page
-@app.route('/')
-def home():
-    return render_template("index.html")
-
-# Upload Page
-# UPLOAD_FOLDER = os.getcwd() + '/uploads'
-# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 ALLOWED_EXTENSIONS = {'csv'}
-
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/upload', methods=["GET", "POST"])
-def upload():
+@app.route('/', methods=["GET", "POST"])
+def home():
     if request.method == "POST":
         print("post")
         if 'file' not in request.files:
@@ -45,7 +37,7 @@ def upload():
             # return "successful"
             # return redirect('/csv-head')
     print("render")
-    return render_template('upload.html') 
+    return render_template('index.html') 
 
 
 # Debug mode

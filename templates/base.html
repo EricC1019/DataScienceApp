@@ -7,49 +7,54 @@
     <title>DS APP</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
     <style>
+        :root{
+            --table-header-color: #88bccd;
+            --table-odd-color: #97c6d5;
+            --table-even-color: #add8e6;
+        }
         .header{
             width: 100vw;
-            height: 30px;
+            height: 100px;
             background-color: black;
             text-align: center;
-            padding-top: 10px;
-            font: bold arial 20px;
-            color: white;
         }
         a{
-            font: bold arial 20px;
+            text-decoration: none;
+        }
+        .header-title{
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            font-size: 80px;
             color: white;
         }
-        table{
+        table {
             margin: 25px;
             border-collapse: collapse;
             font-size: 0.9em;
             min-width: 400px;
             text-align: center;
-
         }
-        table tbody tr:nth-of-type(even){
-            background-color: #97c6d5;
-
-        }
-        th{
+        th {
             padding: .5em;
-            background-color: #88bccd;
+            background-color: var(--table-header-color);
+        }
+        tr:nth-child(odd) {
+            background-color: var(--table-odd-color);
+        }
+        tr:nth-child(even) td {
+            background-color: var(--table-even-color);
         }
         td{
             padding: .5em;
-            background-color: #add8e6;
         }
-        a{
-            color: black;
-        }
+
     </style>
     {% block head %}{% endblock %}
 </head>
 <body>
-    <a href="/"> 
-        <header class="header">Data Science App</header>
-    </a>
+
+    <header class="header">
+        <a href="/" class="header-title"> Data Science App </a>
+    </header>
     {% block body %}{% endblock %}
 </body>
 </html>

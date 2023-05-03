@@ -1,8 +1,32 @@
 {% extends 'base.html' %}
 
 {% block head %}
+<style>
+    .container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        height: 70vh;
+        margin-top: 5vh;
+        background-color: lightblue;
+    }
+    .upload{
+        color:black;
+    }
+</style>
 {% endblock %}
 
 {% block body %}
-<a href="/upload">UPLOAD</a>
+<!-- <div class="container">
+    <a href="/upload">
+        <button class="upload">UPLOAD</button>
+    </a>
+</div> -->
+
+<h1>Upload CSV File</h1>
+<form method=post enctype="multipart/form-data">
+  <input type=file name=file>
+  <input type=submit value=Upload>
+</form>
 {% endblock %}
