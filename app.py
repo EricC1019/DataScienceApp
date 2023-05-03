@@ -13,9 +13,40 @@ import numpy as np
 app = Flask(__name__)
 
 # Home Page
-@app.route('/', methods=["GET", "POST"])
+@app.route('/')
 def home():
-    return "hello world"
+    return render_template("index.html")
+
+# Upload Page
+# UPLOAD_FOLDER = os.getcwd() + '/uploads'
+# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+ALLOWED_EXTENSIONS = {'csv'}
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/upload', methods=["GET", "POST"])
+def upload():
+    if request.method == "POST":
+        print("post")
+        if 'file' not in request.files:
+            print("No file part")
+            return redirect('/')
+        file = request.files['file']
+        if file.filename == '':
+            print("No selected file")
+            return redirect('/')
+        if file and allowed_file(file.filename):
+            # filename = file.filename
+            # file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            df = pd.read_csv(file)
+            print("succesful")
+            return render_template('csv-head.html', df=df)
+            # return "successful"
+            # return redirect('/csv-head')
+    print("render")
+    return render_template('upload.html') 
+
 
 # Debug mode
 if __name__ == '__main__':

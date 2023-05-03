@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DS APP</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+    <style>
+        .header{
+            width: 100vw;
+            height: 30px;
+            background-color: black;
+            text-align: center;
+            padding-top: 10px;
+            font: bold arial 20px;
+            color: white;
+        }
+        a{
+            font: bold arial 20px;
+            color: white;
+        }
+        table{
+            margin: 25px;
+            border-collapse: collapse;
+            font-size: 0.9em;
+            min-width: 400px;
+            text-align: center;
+
+        }
+        table tbody tr:nth-of-type(even){
+            background-color: #97c6d5;
+
+        }
+        th{
+            padding: .5em;
+            background-color: #88bccd;
+        }
+        td{
+            padding: .5em;
+            background-color: #add8e6;
+        }
+        a{
+            color: black;
+        }
+    </style>
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <a href="/"> 
+        <header class="header">Data Science App</header>
+    </a>
+    {% block body %}{% endblock %}
+</body>
+</html>

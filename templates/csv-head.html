@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+
+    {% if df.columns|length < 1 %}
+    <h1 style="text-align: center;">No Data Present/h1>
+    {% else %}
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                {% for header in df.columns %}
+                <th>{{header}}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for index, row in df.iterrows() %}
+                <tr>
+                    <td>{{index}}</td>
+                    {% for col in df.columns %}
+                        <td>{{ row[col] }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+{% endblock %}
