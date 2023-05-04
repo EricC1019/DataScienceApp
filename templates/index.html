@@ -1,32 +1,240 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<style>
-    .container{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        height: 70vh;
-        margin-top: 5vh;
-        background-color: lightblue;
-    }
-    .upload{
-        color:black;
-    }
-</style>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            height: 70vh;
+            margin-top: 5vh;
+            background-color: lightblue;
+        }
+
+        .drop-container {
+            width: 70vw;
+            height: 30vh;
+            border: 2px dashed #999999;
+            background: white;
+            border-radius: 0.5em;
+            color: #333333;
+            text-align: center;
+            position: relative;
+        }
+
+        .helpertext {
+            position: absolute;
+            top: 45%;
+            width: 100%;
+            text-align: center;
+            z-index: 0;
+        }
+
+        .dropzone input {
+            width: 70vw;
+            height: 30vh;
+            opacity: 0;
+            border: 2px;
+            background-color: burlywood;
+            text-align: center;
+        }
+
+        .file-bar {
+            text-align: left;
+            margin: 20px;
+        }
+        .footer{
+            display: grid;
+            grid-template-columns: calc(100%/3) calc(100%/3) calc(100%/3) ;
+            /* text-align: center; */
+            position: absolute;
+            bottom: 0;
+            width: 100vw;
+            height: 35vh;
+            background-color: darkgray;
+            /* border-top: 15px solid rgba(69, 69, 69, .69); */
+            border-top: 5px solid black;
+        }
+
+        footer p{
+            width: 60%;
+        }
+
+        footer section{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        footer a{
+            color: black;
+        }
+        footer h3{
+            border-bottom: 2px solid black;
+        }
+    </style>
 {% endblock %}
 
 {% block body %}
-<!-- <div class="container">
-    <a href="/upload">
-        <button class="upload">UPLOAD</button>
-    </a>
-</div> -->
+    <h1>Upload CSV File</h1>
+    <div class="drop-container">
+        <div id="drop_zone" class="dropzone">
+            <div class="helpertext">
+                Drop CSV file here (or click to browse files)
+            </div>
+            <form id="form1" action="/upload" method="post" enctype="multipart/form-data">
+                <!-- <input id="standard_files" class="fileselect" type="file" title="browse" name="files[]" multiple="multiple" accept=".csv"> -->
+                <input id="standard_files" class="fileselect" type="file" title="browse" accept=".csv" value="Upload">
+            </form>
+        </div>
+        <div class="file-bar">
+            No file selected
+        </div>
+    </div>
 
-<h1>Upload CSV File</h1>
-<form method=post enctype="multipart/form-data">
-  <input type=file name=file>
-  <input type=submit value=Upload>
-</form>
+    <!-- Bottom Section-->
+
+    <footer class="footer">
+        <section>
+            <h3>About</h3>
+        </section>
+        <section>
+            <h3>Features</h3>
+            <p>
+                head<br>
+                nulls<br>
+                columns<br>
+            </p>
+        </section>
+        <section>
+            <h3>Author</h3>
+            <p>
+                <strong>Eric Chin</strong> <br>
+                May 2023<br>
+                <a href="https://github.com/EricC1019/DataScienceApp"><u>Github Source</u></a>
+            </p>
+        </section>
+    </footer>
+    <script>
+        const fileInput = document.getElementById('standard_files');
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+        
+            console.log(file)
+            if(file){
+                let submitter = document.querySelector("input[value=Upload]")
+                // let formdata = new FormData()
+                let form = document.querySelector("#form1");
+                // formdata.append('file', file)
+                let formform = new FormData()
+                console.log(submitter);
+                formform.append('file', file)
+                fetch("/upload",{
+                    method: "post",
+                    body: formform
+                })
+                .then(res => {return res.text()})
+            }
+            else{
+                console.log("no file")
+            }
+        });
+    </script>
+    <!-- <script>
+        const fileInput = document.getElementById('standard_files');
+
+    fileInput.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    
+    if(file){
+        // create form data object
+        let formData = new FormData();
+        formData.append("file", file);
+
+        const requestOptions = {
+            headers: {
+                "Content-Type": file.contentType, // This way, the Content-Type value in the header will always match the content type of the file
+            },
+            mode: "no-cors",
+            method: "POST",
+            files: file,
+            body: formData,
+        };
+        console.log(requestOptions);
+
+        fetch("http://localhost:5000/upload", requestOptions).then(
+        (response) => {
+            console.log(response.data);
+            let url = window.location.href + "/upload";
+            window.location.href = url;
+        }
+    );
+    }
+    else{
+        console.log("File upload unsuccessful")
+    }
+})
+
+    </script> -->
+    <!-- <script>
+        // const fileInput = document.getElementById('standard_files');
+
+        // fileInput.addEventListener('change', (event) => {
+        //     const file = event.target.files[0];
+
+        //     if (file) {
+        //         console.log('File selected:', file.name);
+        //         // do something with the file here
+        //         let url = window.location.href + "/analysis";
+        //         window.location.href = url;
+        //     } else {
+        //         console.log('No file selected.');
+        //     }
+        // });
+    console.log("in script")
+    const fileInput = document.getElementById('standard_files');
+
+    fileInput.addEventListener('change', (event) => {
+        console.log("change")
+        const file = event.target.files[0];
+        console.log(file)
+        if(file){
+            // create form data object
+            const formData = new FormData();
+
+            // add the file to the form
+            formData.append("file", file)
+            console.log(formData)
+
+            // fetch("/analysis", {
+            //     method: "POST",
+            //     body: formData
+            // })
+            // .then(response => {
+            //     console.log(response);
+            //     return response.text(); // use response.text() to get the response as a string
+            // })
+            // .then(data => console.log(data))
+            // .catch(error => console.error(error));
+
+            fetch("/analysis", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+            // do something with the response data here
+            })
+            .catch(error => console.error(error));
+
+
+        }
+        else{
+            console.log("File upload unsuccessful")
+        }
+    })
+        
+
+    </script> -->
 {% endblock %}
