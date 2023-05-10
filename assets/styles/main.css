@@ -1,0 +1,160 @@
+:root {
+    /* color variables */
+    --body-background-color: #F5F5F7;
+    --header-color: #1D1D1F;
+    --header-text-color: white;
+    --table-header-color: #9fc4d1;
+    /* --table-odd-color: #97c6d5; */
+    --table-even-color: #e2e7e9;
+    --footer-color: #a2a2a2;
+}
+
+
+/* general styles */
+body {
+    margin: 0;
+    background-color: var(--body-background-color);
+}
+
+h3{
+    margin-bottom: 0;
+    text-decoration: underline;
+}
+
+p {
+    width:  70%;
+    margin-bottom: 0;
+}
+
+a {
+    width: 70%;
+    color: black;
+    text-decoration: underline;
+}
+
+#output-data-upload {
+    width: 80%;
+}
+
+/* body section */
+#body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+    min-height: 100vh;
+}
+
+/* header section */
+#header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 10vh;
+    min-height: 1.5em;
+    background-color: var(--header-color);
+    font: bold 3em impact;
+    color: var(--header-text-color);
+    margin: 0;
+}
+
+/* upload data section */
+#upload-data {
+    width: 70vw;
+    height: 60px;
+    line-height: 60px;
+    border-width: 1px;
+    border: 1px dashed black;
+    border-radius: 5px;
+    text-align: center;
+    margin: 20px;
+}
+
+#upload-title {
+    font: bold 2em times;
+    margin-top: 1em;
+}
+
+#input{
+    width: 50vw;
+    height: 20px;
+}
+
+#submit-val{
+    border-radius: 0;
+    height: 26px;
+    /* border: 2px solid grey; */
+}
+/* data table section */
+
+#dash-table-title{
+    display: flex;
+    justify-content: space-between;
+}
+
+#dash-table{
+    width: 80vw;
+    overflow: auto;
+
+}
+
+#dash-table table {
+    border-collapse: collapse;
+    font-size: 0.9em;
+    min-width: 400px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+#dash-table th {
+    padding: .5em;
+    background-color: var(--table-header-color);
+    font-weight: bold;
+    border-color: black !important; /* dash wants to be difficult */
+}
+
+/* #dash-table tr:nth-child(odd) {
+    background-color: var(--table-odd-color);
+} */
+
+#dash-table tr:nth-child(even) td {
+    background-color: var(--table-even-color);
+}
+
+#dash-table td {
+    border: 2px solid black;
+    padding: .5em;
+    border-color: black !important; /* dash wants to be difficult */
+}
+
+#df-cols-header,
+#df-cols {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    width: 100%;
+    margin: 5px 0;
+}
+
+#df-cols-header {
+    font-weight: bold;
+}
+/* footer section */
+#footer {
+    display: grid;
+    grid-template-columns: calc(100%/3) calc(100%/3) calc(100%/3);
+    justify-content: center;
+    width: 100%;
+    height: 35vh;
+    background-color: var(--footer-color);
+    margin-top: 5vh;
+}
+
+#footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top: 2px solid black;
+    overflow: hidden;
+}
